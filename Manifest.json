@@ -1,0 +1,24 @@
+{
+  "name": "Parked — Spot Tracker",
+  "short_name": "Parked",
+  "description": "Drop a pin when you park, track the meter, find your way back.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#22252A",
+  "theme_color": "#22252A",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

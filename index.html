@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>Parked — Spot Tracker</title>
+
+<!-- PWA setup -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#22252A">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Parked">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div>
+      <div class="wordmark">PARKED<span>.</span></div>
+      <div class="sub">spot memory + meter</div>
+    </div>
+  </div>
+
+  <!-- EMPTY STATE -->
+  <div class="empty-state" id="emptyState">
+    <div class="empty-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/>
+        <circle cx="12" cy="10" r="2.5"/>
+      </svg>
+    </div>
+    <h1>No spot saved</h1>
+    <p>Drop a pin when you park so you can find your way back — and never forget the meter again.</p>
+    <button class="btn-primary" id="parkHereBtn">Park Here</button>
+  </div>
+
+  <!-- ACTIVE SPOT STAGE -->
+  <div class="stage" id="activeStage" style="display:none;">
+    <div class="dial-wrap">
+      <svg viewBox="0 0 200 200">
+        <circle class="dial-track" cx="100" cy="100" r="86"></circle>
+        <circle class="dial-progress" id="dialProgress" cx="100" cy="100" r="86"></circle>
+      </svg>
+      <div class="dial-center">
+        <div class="dial-time" id="dialTime">--:--</div>
+        <div class="dial-label" id="dialLabel">remaining</div>
+        <div class="flip-flag" id="flipFlag">Expired</div>
+      </div>
+    </div>
+
+    <div class="spot-card">
+      <div class="spot-row">
+        <div class="ico">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        </div>
+        <div class="txt">
+          <div class="label">Note</div>
+          <div class="val" id="spotNote">—</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="spot-row">
+        <div class="ico">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </div>
+        <div class="txt">
+          <div class="label">Distance back</div>
+          <div class="val" id="spotDistance">Locating…</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-row">
+      <button class="btn-ghost" id="directionsBtn">Directions</button>
+      <button class="btn-primary" id="imBackBtn" style="box-shadow: 0 4px 0 #4E7562, 0 8px 20px rgba(0,0,0,0.3); background: var(--safe-green); color: var(--asphalt-2);">I'm Back</button>
+    </div>
+
+    <div class="status-banner" id="liveStatus"></div>
+  </div>
+
+  <button class="history-toggle" id="historyToggle">
+    <span>Past spots</span>
+    <svg id="historyChevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition: transform 0.2s;"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div class="history-list" id="historyList"></div>
+
+</div>
+
+<!-- TIME PICKER SHEET -->
+<div class="sheet-backdrop" id="sheetBackdrop">
+  <div class="sheet">
+    <h2>How long's the meter?</h2>
+    <div class="duration-grid" id="durationGrid">
+      <button class="duration-opt" data-mins="30">30 min</button>
+      <button class="duration-opt" data-mins="60">1 hr</button>
+      <button class="duration-opt" data-mins="120">2 hr</button>
+      <button class="duration-opt" data-mins="180">3 hr</button>
+      <button class="duration-opt" data-mins="240">4 hr</button>
+      <button class="duration-opt" data-mins="custom">Custom</button>
+    </div>
+    <div id="customMinsWrap" style="display:none;">
+      <label class="field-label" for="customMins">Minutes</label>
+      <input type="number" id="customMins" placeholder="e.g. 90" min="1">
+    </div>
+    <div>
+      <label class="field-label" for="noteInput">Note (level, row, landmark)</label>
+      <input type="text" id="noteInput" placeholder="e.g. Level 3, near the elevator" maxlength="60">
+    </div>
+    <button class="btn-primary" id="confirmParkBtn" style="width:100%;">Drop Pin</button>
+    <button class="btn-ghost" id="cancelSheetBtn" style="width:100%;">Cancel</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
